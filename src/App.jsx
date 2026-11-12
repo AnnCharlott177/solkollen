@@ -11,6 +11,7 @@ import SearchBar from './components/SearchBar.jsx'
 import Favorites from './components/Favorites.jsx'
 import CurrentWeather from './components/CurrentWeather.jsx'
 import Forecast from './components/Forecast.jsx'
+import ThemeToggle from './components/ThemeToggle.jsx'
 
 export default function App() {
   const [favorites, setFavorites] = useLocalStorage('solkollen.favoriter', [])
@@ -80,6 +81,7 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
+        <ThemeToggle />
         <h1>
           <img src="./favicon.svg" alt="" width="40" height="40" />
           Solkollen

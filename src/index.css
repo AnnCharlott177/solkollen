@@ -11,12 +11,36 @@
   --border: #f6d6bb;
   --shadow: 0 8px 24px rgba(214, 112, 46, 0.15);
   --radius: 20px;
+  --bg-glow-2: #ffd6c9;
+  --current-top: #fff3d6;
+  --error-bg: #ffe4e1;
+  --error-border: #f7b2ac;
+  --key-bg: #fff1c9;
 
   color-scheme: light;
   font-family: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.5;
   color: var(--text);
   -webkit-text-size-adjust: 100%;
+}
+
+/* Mörkt läge – samma varma färger, men på mörk botten */
+:root[data-theme='dark'] {
+  --bg: #1d1410;
+  --bg-glow: #4a2a14;
+  --bg-glow-2: #3d1d1f;
+  --card: #2a1e18;
+  --text: #fbeee2;
+  --muted: #c9a892;
+  --peach: #3a2a20;
+  --border: #5a3f2e;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --current-top: #3d2a18;
+  --error-bg: #46201f;
+  --error-border: #8a3a36;
+  --key-bg: #44361a;
+
+  color-scheme: dark;
 }
 
 *,
@@ -35,7 +59,7 @@ body {
   min-height: 100vh;
   background:
     radial-gradient(circle at 85% -10%, var(--bg-glow) 0, transparent 45%),
-    radial-gradient(circle at -10% 110%, #ffd6c9 0, transparent 40%),
+    radial-gradient(circle at -10% 110%, var(--bg-glow-2) 0, transparent 40%),
     var(--bg);
   background-attachment: fixed;
 }
@@ -97,7 +121,28 @@ main {
 }
 
 .app-header {
+  position: relative;
   text-align: center;
+  padding: 0 56px;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  font-size: 1.4rem;
+  line-height: 1;
+  transition: transform 0.15s;
+}
+
+.theme-toggle:active {
+  transform: scale(0.9);
 }
 
 .app-header h1 {
@@ -238,6 +283,58 @@ main {
 
 /* Favoriter */
 
+.favorites-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.favorites-bar .favorites {
+  flex: 1;
+  min-width: 0;
+}
+
+.favorites-filter {
+  flex: 0 0 220px;
+  margin-left: auto;
+}
+
+.favorites-filter input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 2px solid var(--border);
+  background: var(--card);
+}
+
+.favorites-filter input:focus {
+  border-color: var(--orange);
+  outline: none;
+}
+
+.favorites-no-match {
+  margin: 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+}
+
+/* På smala skärmar hamnar filtret ovanför listan, fortfarande till höger */
+@media (max-width: 560px) {
+  .favorites-bar {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .favorites-filter {
+    flex-basis: auto;
+    width: min(100%, 260px);
+    align-self: flex-end;
+  }
+}
+
 .favorites ul {
   list-style: none;
   margin: 0;
@@ -322,7 +419,7 @@ main {
 /* Aktuellt väder */
 
 .current {
-  background: linear-gradient(160deg, #fff3d6 0%, #ffffff 60%);
+  background: linear-gradient(160deg, var(--current-top) 0%, var(--card) 60%);
 }
 
 .current-header {
@@ -479,12 +576,12 @@ main {
   gap: 12px;
   padding: 16px;
   border-radius: var(--radius);
-  background: #ffe4e1;
-  border: 2px solid #f7b2ac;
+  background: var(--error-bg);
+  border: 2px solid var(--error-border);
 }
 
 .message.key {
-  background: #fff1c9;
+  background: var(--key-bg);
   border-color: var(--sun);
 }
 
