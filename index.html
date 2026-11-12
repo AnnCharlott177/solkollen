@@ -7,6 +7,14 @@
     <meta name="theme-color" content="#ff8a3d" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <title>Solkollen – väder för dina orter</title>
+    <script>
+      // Sätt temat direkt, innan appen laddats, så att sidan inte blinkar till i fel läge
+      try {
+        var tema = JSON.parse(localStorage.getItem('solkollen.tema'))
+        if (!tema) tema = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.dataset.theme = tema
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
